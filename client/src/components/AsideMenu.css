@@ -12,6 +12,24 @@
     display: flex;
     align-items: center;
     margin-bottom: 2rem;
+    user-select: none;
+    border-bottom: var(--gray-dark) 1px solid;
+    padding-bottom: 1.5rem;
+}
+
+#aside-menu header .icon {
+    background-color: var(--accent-color);
+    padding: 0.5rem;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 0.5rem;
+    color: var(--black);
+}
+
+#aside-menu header h2 span {
+    color: var(--accent-color);
 }
 
 #aside-menu nav ul{
@@ -21,12 +39,14 @@
 }
 
 #aside-menu nav li a {
-    display: inline-block;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: .5rem;
     color: var(--gray-light);
-    padding: 0.5rem 0;
     font-size: 1.1rem;
     transition: .3s;
-    padding: 0.5rem 1rem;
+    padding: 0.75rem 1rem;
     width: 100%;
     border-radius: 0.5rem;
 }
@@ -41,4 +61,29 @@
     background-color: var(--gray-dark);
     color: var(--white);
     border-radius: 0.5rem;
+}
+
+#aside-menu nav li a .icon {
+    color: var(--accent-color);
+}
+
+#aside nav li a.active .icon {
+    color: var(--black);
+}
+
+#aside-menu footer {
+    margin-top: auto;
+    font-size: 0.875rem;
+    color: var(--gray-light);
+    border-top: var(--gray-dark) 1px solid;
+    padding-top: 1.5rem;
+    user-select: none;
+    display: flex;
+    justify-content: space-between;
+}
+
+#aside-menu footer span {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
 }

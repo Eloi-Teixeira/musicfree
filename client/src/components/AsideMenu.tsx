@@ -1,7 +1,11 @@
-import { Music } from "lucide-react";
+import { Copyright, History, LayoutGrid, Music } from "lucide-react";
 import { NavLink } from "react-router-dom";
 
 function AsideMenu() {
+    const menuItems = [
+    { id: '/', label: 'Baixar Música', icon: <LayoutGrid size={20} /> },
+    { id: 'history', label: 'Histórico', icon: <History size={20} /> },
+  ];
   return (
     <aside id="aside-menu">
       <header>
@@ -9,21 +13,28 @@ function AsideMenu() {
                <Music size={24} strokeWidth={2.5} />
         </div>
         <h2>
-          Musics <span>Free</span>
+          Musics<span>Free</span>
         </h2>
       </header>
       <nav>
         <ul>
-          <li>
-            <NavLink to="/">Baixar Musica</NavLink>
-          </li>
-          <li>
-            <NavLink to="/historico" className={""}>
-              Historico
-            </NavLink>
-          </li>
+          {menuItems.map((item) => (
+            <li key={item.id}>
+              <NavLink to={item.id} className={""}>
+                {item.icon}
+                {item.label}
+              </NavLink>
+            </li>
+          ))}
         </ul>
       </nav>
+
+      <footer>
+        
+        <span>v1.0</span>
+        <span><Copyright size={16} /> Elói 2025</span>
+        
+      </footer>
     </aside>
   );
 }
