@@ -1,0 +1,44 @@
+#aside-menu {
+    background-color: #000;
+    color: #fff;
+    width: 16rem;
+    height: 100vh;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+#aside-menu header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+#aside-menu nav ul{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+#aside-menu nav li a {
+    display: inline-block;
+    color: var(--gray-light);
+    padding: 0.5rem 0;
+    font-size: 1.1rem;
+    transition: .3s;
+    padding: 0.5rem 1rem;
+    width: 100%;
+    border-radius: 0.5rem;
+}
+
+#aside-menu nav li a.active {
+    background-color: var(--accent-color);
+    color: var(--black);
+    font-weight: 600;
+}
+
+#aside-menu nav li a:hover {
+    background-color: var(--gray-dark);
+    color: var(--white);
+    border-radius: 0.5rem;
+}
