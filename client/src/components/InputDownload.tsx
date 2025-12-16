@@ -1,9 +1,24 @@
+import { useState } from "react";
 import YoutubeIcon from "../assets/YoutubeIcon";
+import getMusics from "../services/getMusics";
 
 function InputDownload() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const [link, setLink] = useState("");
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // Lógica para lidar com o download da música
+    console.log("Link da música:", link);
+    const data = await getMusics(link);
+    console.log("Blob recebido:", data.music);
+
+    const url = window.URL.createObjectURL(data.music);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${data.metadata.data.title}.mp3`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    window.URL.revokeObjectURL(url);
+    
   };
 
   return (
@@ -14,7 +29,7 @@ function InputDownload() {
       <label htmlFor="music-link">
         <YoutubeIcon />
       </label>
-      <input type="text" id="music-link" placeholder="Cole o link da música" />
+      <input type="text" id="music-link" value={link} onChange={(e) => setLink(e.target.value)} placeholder="Cole o link da música" />
       <button type="submit">Download</button>
     </form>
   );

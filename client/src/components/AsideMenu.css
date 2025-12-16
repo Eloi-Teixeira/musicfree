@@ -67,7 +67,7 @@
     color: var(--accent-color);
 }
 
-#aside nav li a.active .icon {
+#aside-menu nav li a.active .icon {
     color: var(--black);
 }
 

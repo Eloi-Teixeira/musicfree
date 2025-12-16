@@ -3,8 +3,8 @@ import { NavLink } from "react-router-dom";
 
 function AsideMenu() {
     const menuItems = [
-    { id: '/', label: 'Baixar Música', icon: <LayoutGrid size={20} /> },
-    { id: 'history', label: 'Histórico', icon: <History size={20} /> },
+    { id: '/', label: 'Baixar Música', icon: <LayoutGrid size={20} className="icon" /> },
+    { id: 'history', label: 'Histórico', icon: <History size={20} className="icon" /> },
   ];
   return (
     <aside id="aside-menu">
@@ -32,7 +32,7 @@ function AsideMenu() {
       <footer>
         
         <span>v1.0</span>
-        <span><Copyright size={16} /> Elói 2025</span>
+        <span><Copyright size={16} />2025</span>
         
       </footer>
     </aside>
