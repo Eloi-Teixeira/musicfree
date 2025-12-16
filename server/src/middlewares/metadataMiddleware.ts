@@ -1,26 +1,13 @@
 import ytdl from "@distube/ytdl-core";
 import { Request, Response, NextFunction } from "express";
 import { URL } from "url";
-
-interface ThumbnailDimension {
-  url: string;
-  width: number;
-  height: number;
-}
-
-export interface VideoMetadata {
-  title: string;
-  artist: string;
-  releaseDate: string;
-  thumbnailUrl: string;
-}
-
+import type { VideoMetadata, ThumbnailDimension } from "../types";
 
 export function normalizeYouTubeURL(url: string) {
   try {
     return new URL(url).href;
   } catch {
-    return "https://" + url; 
+    return "https://" + url;
   }
 }
 

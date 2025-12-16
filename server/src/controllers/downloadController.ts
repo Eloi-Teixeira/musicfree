@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-// import ytdl from "@distube/ytdl-core";
 import { spawn } from "child_process";
-import { getMetadata, VideoMetadata } from "../middlewares/metadataMiddleware";
+import { getMetadata } from "../middlewares/metadataMiddleware";
+import type { VideoMetadata } from "../types";
 
 const YTDLP_BIN = "yt-dlp";
 
@@ -17,7 +17,7 @@ async function downloadAudio(req: Request, res: Response) {
     }
     const tagArgs: string[] = [];
 
-    tagArgs.push("--add-metadata"); 
+    tagArgs.push("--add-metadata");
     tagArgs.push("--embed-thumbnail");
     tagArgs.push("--metadata", `title:${metadata.title}`);
     tagArgs.push("--metadata", `artist:${metadata.artist}`);

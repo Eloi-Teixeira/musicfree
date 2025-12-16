@@ -1,14 +1,9 @@
-interface Video {
-  id: string;
-  title: string;
-  thumbnail: string;
-  duration: string;
-}
-
 import { Download, Music } from "lucide-react";
+import type { Video } from "../types";
 
 function VideoCard({ video }: { video: Video }) {
-    const videoTitle = video.title.length > 50 ? video.title.slice(0, 47) + "..." : video.title;
+  const videoTitle =
+    video.title.length > 50 ? video.title.slice(0, 47) + "..." : video.title;
 
   return (
     <div className="video-card">

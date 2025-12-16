@@ -18,18 +18,20 @@ function InputDownload() {
     a.click();
     a.remove();
     window.URL.revokeObjectURL(url);
-    
   };
 
   return (
-    <form
-      className="input-download"
-      onSubmit={handleSubmit}
-    >
+    <form className="input-download" onSubmit={handleSubmit}>
       <label htmlFor="music-link">
         <YoutubeIcon />
       </label>
-      <input type="text" id="music-link" value={link} onChange={(e) => setLink(e.target.value)} placeholder="Cole o link da música" />
+      <input
+        type="text"
+        id="music-link"
+        value={link}
+        onChange={(e) => setLink(e.target.value)}
+        placeholder="Cole o link da música"
+      />
       <button type="submit">Download</button>
     </form>
   );
