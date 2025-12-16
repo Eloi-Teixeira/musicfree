@@ -1,8 +1,16 @@
 import { CheckCircle2, Download, History } from "lucide-react";
 import InputDownload from "../components/InputDownload";
 import VideoCard from "../components/VideoCard";
+import { useOutletContext } from "react-router-dom";
+import type { Video } from "../types";
+import { useEffect } from "react";
 
 function HomePage() {
+  const { videos } = useOutletContext<{ videos: Video[] }>();
+  useEffect(() => {
+    console.log("Videos loaded:", videos);
+  }, [videos]);
+  
   const features = [
     "DOWNLOADS GRÁTIS",
     "SEM ANÚNCIOS",
@@ -36,15 +44,17 @@ function HomePage() {
           <h2>Últimos Downloads</h2>
           </header>
           <div className="downloads-container">
-            <div className="empty-downloads-icon"><Download /></div>
-            <p>Seu histórico de downloads aparecerá aqui.</p>
+            {videos && videos?.length === 0 ? (
+              <div className="empty-downloads">
+                <div className="empty-downloads-icon"><Download /></div>
+                <p>Seu histórico de downloads aparecerá aqui.</p>
+              </div>
+            ) : (
+              videos.map(video => (
+                <VideoCard key={video.id} video={video} />
+              ))
+            )}
           </div>
-          <VideoCard video={{
-            id: "1",
-            title: "Exemplo de Música",
-            thumbnail: "https://i.pinimg.com/1200x/c6/27/5a/c6275a5027de66756f22da762e6e84ec.jpg",
-            duration: "3:45"
-          }} />
         </section>
       </main>
     </div>

@@ -1,10 +1,10 @@
 .input-download {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 1fr;
   align-items: center;
   margin: 0;
   border: 2px solid var(--gray-light);
   border-radius: 1rem;
-  padding: 1.15rem 1.75rem;
   position: relative;
   width: 100%;
   background-color: var(--white);
@@ -18,11 +18,8 @@
 }
 
 .input-download label {
+  padding: 0 1rem;
   display: flex;
-  position: absolute;
-  left: 20px;
-  top: 50%;
-  transform: translateY(-50%);
   color: var(--gray-light);
   font-size: 1.2rem;
   pointer-events: none;
@@ -36,12 +33,14 @@
 }
 
 .input-download input {
-  flex: 1;
-  padding: 0 1rem 0 3rem;
+  padding: 1.5rem 3rem;
+  padding-left: 0;
+  font-size: 1.2rem;
   border: none;
-  border-radius: 1rem;
-  font-size: 1rem;
+  display: block;
   width: 100%;
+  outline: none;
+  font-size: 1rem;
   background-color: transparent;
   color: var(--black);
 }
@@ -62,8 +61,11 @@
   cursor: pointer;
   white-space: nowrap;
   margin-left: 10px;
-  background-color: var(--accent-color);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  bottom: 10px;
 }
 
 .input-download button:active {

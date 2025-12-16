@@ -65,7 +65,8 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
+  margin-left: .5rem;
 }
 
 .downloads-section header div {
@@ -92,6 +93,12 @@
 }
 
 .downloads-container {
+  display: grid;
+  padding-bottom: 2rem;
+  gap: 1.5rem;
+}
+
+.empty-downloads {
   text-align: center;
   padding: 3rem 2rem;
   color: var(--gray-dark);

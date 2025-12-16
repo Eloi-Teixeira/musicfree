@@ -14,7 +14,7 @@ function VideoCard({ video }: { video: Video }) {
         <h3 className="video-title">{videoTitle}</h3>
         <div className="video-duration">
           <Music className="music-icon" />
-          <p>{video.duration}</p>
+          <p>{video.duration ?? "00:00"}</p>
         </div>
       </div>
       <button className="download-button">

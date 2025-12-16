@@ -2,7 +2,7 @@
   --black: #000;
   --white: #fff;
   --accent-color: #fb0;
-  --gray-light: #ccc;
+  --gray-light: #e0e0e0;
   --gray-dark: #6b7280;
 }
 
@@ -24,7 +24,6 @@
   max-width: 670px;
   margin: 0 auto;
   padding: 0 1rem;
-  overflow: hidden;
 }
 
 #App {
