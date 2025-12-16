@@ -61,17 +61,33 @@
   width: 100%;
 }
 
+.downloads-section header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.downloads-section header div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  color: var(--accent-color);
+  background-color: var(--black);
+  border-radius: 5px;
+}
+
 .downloads-section h2 {
   font-size: 1.5rem;
   color: var(--black);
-  margin-bottom: 2rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
 .downloads-section h2::before {
-  content: "⏱";
   font-size: 1.3rem;
 }
 

@@ -1,0 +1,72 @@
+.video-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    background-color: var(--white);
+}
+
+.video-card .video-thumbnail {
+    max-width: 64px;
+    max-height: 64px;
+    flex-shrink: 0;
+    background-color: var(--gray-dark);
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.video-card img {
+    object-fit: cover;
+}
+
+.video-card .video-info {
+    flex-grow: 1;
+}
+
+.video-card .video-info .video-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--black);
+    margin-bottom: 0.25rem;
+}
+
+.video-card .video-info .video-duration {
+    font-size: 0.875rem;
+    color: var(--gray-dark);
+    display: flex;
+    align-items: center;
+}
+
+.video-card .video-info .video-duration .music-icon {
+    margin-right: 0.25rem;
+    width: 1.2rem;
+    color: var(--accent-color);
+}
+
+.video-card .download-button {
+    color: var(--gray-dark);
+    background-color: var(--gray-light);
+    padding: .5rem;
+    border-radius: 12px;
+    transition: all .3s;
+    transform: translateX(4px);
+    opacity: 0;
+}
+
+.video-card .download-button:hover {
+    background-color: var(--accent-color);
+    color: var(--black);
+    cursor: pointer;
+}
+
+.video-card:hover .download-button {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.video-card .download-button svg {
+    width: 1.2rem;
+    height: 1.2rem;
+}

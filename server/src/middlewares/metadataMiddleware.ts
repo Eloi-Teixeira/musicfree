@@ -10,8 +10,8 @@ interface ThumbnailDimension {
 
 export interface VideoMetadata {
   title: string;
-  artist: string; // O nome do canal/uploader pode ser usado como artista
-  releaseDate: string; // Data de lançamento (pode ser o ano)
+  artist: string;
+  releaseDate: string;
   thumbnailUrl: string;
 }
 
@@ -20,7 +20,7 @@ export function normalizeYouTubeURL(url: string) {
   try {
     return new URL(url).href;
   } catch {
-    return "https://" + url; // tenta adicionar o protocolo
+    return "https://" + url; 
   }
 }
 
@@ -62,9 +62,7 @@ export async function getMetadata(url: string) {
         info.videoDetails.author?.name ??
         info.videoDetails.ownerChannelName ??
         "Unknown Artist",
-      releaseDate: info.videoDetails.uploadDate
-        ? info.videoDetails.uploadDate.split("-")[0]
-        : "Unknown Date",
+      releaseDate: info.videoDetails.uploadDate ?? "Unknown Date",
       thumbnailUrl: selectedThumbnail ? selectedThumbnail.url : "",
     };
 
