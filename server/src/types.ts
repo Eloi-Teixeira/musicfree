@@ -26,10 +26,3 @@ export interface ErrorResponse {
 export interface DownloadRequest {
   url: string;
 }
-
-export interface DownloadMetadata {
-  title: string;
-  artist: string;
-  releaseDate: string;
-  thumbnailUrl: string;
-}

@@ -60,7 +60,7 @@ export async function getMetadata(url: string) {
   }
 }
 
-export async function metadataMiddleware(
+export async function extractVideoMetadata(
   req: Request,
   res: Response,
   next: NextFunction
