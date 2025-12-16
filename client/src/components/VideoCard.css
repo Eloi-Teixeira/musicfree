@@ -4,8 +4,21 @@
     gap: 1rem;
     padding: 1rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 20px;
     background-color: var(--white);
+}
+
+.video-card:first-child {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.video-card:last-child {
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.video-card:not(:last-child) {
+    border-bottom: 1px solid var(--gray-light);
 }
 
 .video-card:hover {

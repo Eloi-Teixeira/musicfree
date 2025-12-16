@@ -9,7 +9,8 @@
   width: 100%;
   background-color: var(--white);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.3s ease;
+  transition: 0.3s ease;
+  overflow: hidden;
 }
 
 .input-download:focus-within {
@@ -43,10 +44,6 @@
   font-size: 1rem;
   background-color: transparent;
   color: var(--black);
-}
-
-.input-download input::placeholder {
-  color: #999;
 }
 
 .input-download button {

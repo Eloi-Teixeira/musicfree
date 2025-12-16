@@ -95,7 +95,6 @@
 .downloads-container {
   display: grid;
   padding-bottom: 2rem;
-  gap: 1.5rem;
 }
 
 .empty-downloads {
