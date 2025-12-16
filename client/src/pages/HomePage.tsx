@@ -1,6 +1,5 @@
 import { CheckCircle2, Download, History } from "lucide-react";
 import InputDownload from "../components/InputDownload";
-import "./Home.css";
 import VideoCard from "../components/VideoCard";
 
 function HomePage() {

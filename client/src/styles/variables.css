@@ -26,3 +26,9 @@
   padding: 0 1rem;
   overflow: hidden;
 }
+
+#App {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    height: 100vh;
+}
