@@ -1,62 +1,10 @@
 import { CheckCircle2, Download, History } from "lucide-react";
 import InputDownload from "../components/InputDownload";
 import VideoCard from "../components/MusicCard";
-import { useEffect, useState } from "react";
-import type { VideoMetadata } from "../types";
+import { useMusic } from "../contexts/MusicContext";
 
 function HomePage() {
-  const [musicData, setMusicData] = useState<VideoMetadata[]>([]);
-
-  // Carregar dados do localStorage
-  useEffect(() => {
-    const loadLocalData = () => {
-      try {
-        const stored = localStorage.getItem("downloadedMusics");
-        if (stored) {
-          const parsed = JSON.parse(stored);
-          setMusicData(Array.isArray(parsed) ? parsed : []);
-        }
-      } catch (error) {
-        console.error("Erro ao carregar downloads:", error);
-        setMusicData([]);
-      }
-    };
-
-    loadLocalData();
-
-    // Ouvir mudanças no localStorage (sincronizar entre abas)
-    const handleStorageChange = (e: StorageEvent) => {
-      if (e.key === "downloadedMusics" && e.newValue) {
-        try {
-          const parsed = JSON.parse(e.newValue);
-          setMusicData(Array.isArray(parsed) ? parsed : []);
-        } catch (error) {
-          console.error("Erro ao processar mudança de localStorage:", error);
-        }
-      }
-    };
-
-    window.addEventListener("storage", handleStorageChange);
-    return () => window.removeEventListener("storage", handleStorageChange);
-  }, []);
-
-  // Ouvir evento customizado (atualizar na mesma aba)
-  useEffect(() => {
-    const handleMusicAdded = () => {
-      const stored = localStorage.getItem("downloadedMusics");
-      if (stored) {
-        try {
-          const parsed = JSON.parse(stored);
-          setMusicData(Array.isArray(parsed) ? parsed : []);
-        } catch (error) {
-          console.error("Erro ao carregar downloads:", error);
-        }
-      }
-    };
-
-    window.addEventListener("musicAdded", handleMusicAdded);
-    return () => window.removeEventListener("musicAdded", handleMusicAdded);
-  }, []);
+  const { musicData } = useMusic();
 
   const features = [
     "DOWNLOADS GRÁTIS",
@@ -99,9 +47,11 @@ function HomePage() {
                 <p>Seu histórico de downloads aparecerá aqui.</p>
               </div>
             ) : (
-              musicData.map((video, i) => (
-                <VideoCard key={"Music" + i} music={video} />
-              ))
+              musicData
+                .slice(0, 5)
+                .map((video, i) => (
+                  <VideoCard key={"Music" + i} music={video} />
+                ))
             )}
           </div>
         </section>

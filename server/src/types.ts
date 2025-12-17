@@ -5,14 +5,17 @@ export interface VideoMetadata {
   releaseDate: string;
   thumbnailUrl: string;
   duration: number;
+  url: string;
+  id: string;
+  uploader_id: string | null;
 }
 
 // Thumbnail types
 export interface ThumbnailDimension {
-    url: string;
-    width: number;
-    height: number;
-    resolution: string;
+  url: string;
+  width: number;
+  height: number;
+  resolution: string;
 }
 
 // API Response types
@@ -30,7 +33,7 @@ export interface DownloadRequest {
 }
 
 export interface YTDLP {
-  thumbnails: ThumbnailDimension[]
+  thumbnails: ThumbnailDimension[];
   thumbnail: string;
   uploader: string;
   duration: number;

@@ -64,6 +64,7 @@ export async function getMetadata(url: string) {
     if (data === undefined) {
       throw new Error();
     }
+
     let selectedThumbnail: ThumbnailDimension | null = null;
     const thumbnails: ThumbnailDimension[] = data.thumbnails
       .filter((i) => i?.height && i?.width)
@@ -81,6 +82,9 @@ export async function getMetadata(url: string) {
       releaseDate: data?.upload_date,
       thumbnailUrl: selectedThumbnail ? selectedThumbnail.url : "",
       duration: data.duration,
+      id: data.id,
+      uploader_id: data.uploader_id,
+      url,
     };
 
     return metadata;
@@ -106,6 +110,7 @@ export async function extractVideoMetadata(
 
     const metadata: VideoMetadata = await getMetadata(videoURL);
     (req as any).videoMetadata = metadata;
+    console.log('Tudo certo')
     next();
   } catch (error) {
     console.error("Erro ao obter metadados:", error);

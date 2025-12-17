@@ -91,3 +91,8 @@
     width: 1.2rem;
     height: 1.2rem;
 }
+
+.music-card .download-button:disabled {
+    background-color: var(--gray-dark);
+    color: black;
+}

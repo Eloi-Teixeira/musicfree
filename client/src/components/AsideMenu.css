@@ -51,7 +51,8 @@
     border-radius: 0.5rem;
 }
 
-#aside-menu nav li a.active {
+#aside-menu nav li a.active,
+#aside-menu nav li a.active:hover {
     background-color: var(--accent-color);
     color: var(--black);
     font-weight: 600;

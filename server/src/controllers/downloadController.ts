@@ -36,7 +36,7 @@ async function downloadAudio(req: Request, res: Response) {
       "-x",
       "--audio-format",
       "mp3",
-      "-o -",
+      "-o",
       "-",
       "--force-overwrites",
       "--quiet",

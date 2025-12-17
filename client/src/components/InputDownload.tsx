@@ -1,36 +1,24 @@
 import { useState } from "react";
 import YoutubeIcon from "../assets/YoutubeIcon";
-import useMusicManager from "../hook/useMusicManager";
 import type { VideoMetadata } from "../types";
-import { useSubmitMessage } from "../hook/SubmitMessage";
-
-const YOUTUBE_REGEX = /^(?:https?:\/\/)?(?:www\.|m\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|shorts\/))([\w-]{11})(?:.+)?$/;
+import { useMusic } from "../contexts/MusicContext";
 
 function InputDownload() {
-
   const [link, setLink] = useState("");
   const [selectedMusic, setSelectedMusic] = useState<VideoMetadata | undefined>(
     undefined
   );
-  const { getMusicInfo, downloadMusic, loading, Feedback } = useMusicManager();
-  const { Feedback: validationFeedback, showError } = useSubmitMessage({});
+  const { getMusicInfo, downloadMusic, loading } =
+    useMusic();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-    const cleanLink = link.trim();
-
-    if (!cleanLink || !YOUTUBE_REGEX.test(cleanLink)) {
-      showError("Adicione um link do YouTube válido!");
-      return;
-    }
-
     console.log("Link da música:", link);
+    
     try {
       const metadata = await getMusicInfo(link);
       if (metadata) {
         setSelectedMusic(metadata);
-        setLink("");
       }
     } catch (error) {
       console.error("Erro ao buscar informações da música:", error);
@@ -71,32 +59,23 @@ function InputDownload() {
           <button
             onClick={async () => {
               if (selectedMusic) {
-                const data = await downloadMusic(link);
-                if (data) {
-                  const url = window.URL.createObjectURL(data);
-                  const a = document.createElement("a");
-                  a.href = url;
-                  a.download = `${selectedMusic.title}.mp3`;
-                  document.body.appendChild(a);
-                  a.click();
-                  a.remove();
-                  window.URL.revokeObjectURL(url);
-                }
+                await downloadMusic(selectedMusic);
               }
             }}
             disabled={loading}
           >
             Baixar {loading ? "..." : "Música"}
           </button>
-          <button onClick={() => {
-            setSelectedMusic(undefined)
-          }}>
+          <button
+            onClick={() => {
+              setLink("");
+              setSelectedMusic(undefined);
+            }}
+          >
             Voltar
           </button>
         </>
       )}
-      {Feedback}
-      {validationFeedback}
     </>
   );
 }
