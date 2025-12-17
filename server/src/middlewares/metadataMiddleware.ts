@@ -1,7 +1,35 @@
 import ytdl from "@distube/ytdl-core";
 import { Request, Response, NextFunction } from "express";
 import { URL } from "url";
-import type { VideoMetadata, ThumbnailDimension } from "../types";
+import type { VideoMetadata, ThumbnailDimension, YTDLP } from "../types";
+
+// Exemplo de como obter todos os metadados do yt-dlp
+import { spawn } from "child_process";
+
+export function getMetadataYTDLP(videoUrl: string): Promise<YTDLP | undefined> {
+  return new Promise((resolve, reject) => {
+    const ytdlp = spawn("yt-dlp", [videoUrl, "--dump-json"]);
+    let jsonOutput = "";
+
+    ytdlp.stdout.on("data", (data) => {
+      jsonOutput += data.toString();
+    });
+
+    ytdlp.on("close", (code) => {
+      if (code === 0) {
+        try {
+          const metadata = JSON.parse(jsonOutput) as YTDLP;
+          resolve(metadata);
+        } catch (e) {
+          reject(new Error("Falha ao processar JSON do yt-dlp."));
+        }
+      } else {
+        reject(new Error(`yt-dlp falhou com código: ${code}`));
+      }
+    });
+    ytdlp.on("error", reject);
+  });
+}
 
 export function normalizeYouTubeURL(url: string) {
   try {
@@ -32,25 +60,27 @@ export async function getMetadata(url: string) {
   url = normalizeYouTubeURL(url);
 
   try {
-    const info = await ytdl.getInfo(url);
+    const data = await getMetadataYTDLP(url);
+    if (data === undefined) {
+      throw new Error();
+    }
     let selectedThumbnail: ThumbnailDimension | null = null;
-    const thumbnails: ThumbnailDimension[] = info.videoDetails.thumbnails.map(
-      (thumb) => ({
+    const thumbnails: ThumbnailDimension[] = data.thumbnails
+      .filter((i) => i?.height && i?.width)
+      .map((thumb) => ({
         url: thumb.url,
         width: thumb.width,
         height: thumb.height,
-      })
-    );
+        resolution: thumb.resolution,
+      }));
     selectedThumbnail = selectBestThumbnail(thumbnails);
 
     const metadata: VideoMetadata = {
-      title: info.videoDetails.title || "Unknown Title",
-      artist:
-        info.videoDetails.author?.name ??
-        info.videoDetails.ownerChannelName ??
-        "Unknown Artist",
-      releaseDate: info.videoDetails.uploadDate ?? "Unknown Date",
+      title: data.title || "Unknown Title",
+      artist: data.uploader,
+      releaseDate: data?.upload_date,
       thumbnailUrl: selectedThumbnail ? selectedThumbnail.url : "",
+      duration: data.duration,
     };
 
     return metadata;
