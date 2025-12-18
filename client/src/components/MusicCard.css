@@ -1,98 +1,101 @@
 .music-card {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 1rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    background-color: var(--white);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: var(--white);
 }
 
 .music-card:first-child {
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
 }
 
 .music-card:last-child {
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
 }
 
 .music-card:not(:last-child) {
-    border-bottom: 1px solid var(--gray-light);
+  border-bottom: 1px solid var(--gray-light);
 }
 
 .music-card:hover {
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
-    background-color: var(--gray-light);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+  background-color: var(--gray-light);
 }
 
 .music-card .music-thumbnail {
-    width: 64px;
-    height: 64px;
-    flex-shrink: 0;
-    background-color: var(--gray-dark);
-    border-radius: 15px;
-    overflow: hidden;
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+  background-color: var(--gray-dark);
+  border-radius: 15px;
+  overflow: hidden;
 }
 
 .music-card img {
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
 }
 
 .music-card .music-info {
-    flex-grow: 1;
+  flex-grow: 1;
 }
 
 .music-card .music-info .music-title {
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--black);
-    margin-bottom: 0.25rem;
-    text-align: start;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--black);
+  margin-bottom: 0.25rem;
+  text-align: start;
 }
 
-.music-card .music-info .music-duration {
-    font-size: 0.875rem;
-    color: var(--gray-dark);
-    display: flex;
-    align-items: center;
+.music-card .music-info .music-detail {
+  font-size: 0.875rem;
+  color: var(--gray-dark);
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
 }
 
-.music-card .music-info .music-duration .music-icon {
-    margin-right: 0.25rem;
-    width: 1.2rem;
-    color: var(--accent-color);
+.music-card .music-info .music-detail p {
+  margin-right: 0.75rem;
+}
+
+.music-card .music-info .music-detail svg {
+  color: var(--accent-color);
 }
 
 .music-card .download-button {
-    color: var(--gray-light);
-    background-color: var(--black);
-    padding: .5rem;
-    border-radius: 12px;
-    transition: all .3s;
-    transform: translateX(4px);
-    opacity: 0;
+  color: var(--gray-light);
+  background-color: var(--black);
+  padding: 0.5rem;
+  border-radius: 12px;
+  transition: all 0.3s;
+  transform: translateX(4px);
+  opacity: 0;
 }
 
 .music-card .download-button:hover {
-    background-color: var(--accent-color);
-    color: var(--black);
-    cursor: pointer;
+  background-color: var(--accent-color);
+  color: var(--black);
+  cursor: pointer;
 }
 
 .music-card:hover .download-button {
-    transform: translateX(0);
-    opacity: 1;
+  transform: translateX(0);
+  opacity: 1;
 }
 
 .music-card .download-button svg {
-    width: 1.2rem;
-    height: 1.2rem;
+  width: 1.2rem;
+  height: 1.2rem;
 }
 
 .music-card .download-button:disabled {
-    background-color: var(--gray-dark);
-    color: black;
+  background-color: var(--gray-dark);
+  color: var(--white);
 }

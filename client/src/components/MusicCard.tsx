@@ -1,11 +1,11 @@
-import { Download, Music } from "lucide-react";
+import { Calendar, Download, Music } from "lucide-react";
 import type { VideoMetadata } from "../types";
 import { useMusic } from "../contexts/MusicContext";
-import { formatDuration, formatTitle } from "../utils/musicUtils";
+import { formatDate, formatDuration, formatTitle } from "../utils/musicUtils";
 
 function VideoCard({ music }: { music: VideoMetadata }) {
   const { downloadMusic, loading } = useMusic();
-  
+
   return (
     <div className="music-card">
       <div className="music-thumbnail">
@@ -13,9 +13,11 @@ function VideoCard({ music }: { music: VideoMetadata }) {
       </div>
       <div className="music-info">
         <h3 className="music-title">{formatTitle(music.title)}</h3>
-        <div className="music-duration">
-          <Music className="music-icon" />
+        <div className="music-detail">
+          <Music size={20} />
           <p>{formatDuration(music.duration) ?? "00:00"}</p>
+          <Calendar size={20} />
+          <p>{formatDate(music.created_at)}</p>
         </div>
       </div>
       <button

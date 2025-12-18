@@ -52,3 +52,17 @@ export function formatDuration(seconds: number) {
 export function formatTitle(title: string, limit = 50) {
   return title.length > limit ? title.slice(0, limit - 3) + "..." : title;
 }
+
+export function formatDate(date: string | Date) {
+  let newDate = new Date(date);
+  if (!newDate) {
+    newDate = new Date();
+  }
+
+  const y = String(newDate.getFullYear()).padStart(2, '0')
+  const m = String(newDate.getMonth()).padStart(2, '0')
+  const d = String(newDate.getDate()).padStart(2, '0')
+
+  return `${d}/${m}/${y}`;
+}
+
