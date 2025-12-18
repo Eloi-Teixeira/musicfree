@@ -13,9 +13,18 @@
   overflow: hidden;
 }
 
+.input-download:has(input:hover) {
+  border-color: rgba(255, 187, 0, 0.5);
+}
+
 .input-download:focus-within {
   box-shadow: 0 4px 12px rgba(251, 176, 0, 0.2);
-  border-color: var(--black);
+  border-color: var(--accent-color);
+}
+
+.input-download input:hover + label,
+.input-download:focus-within label svg{
+  fill: var(--accent-color);
 }
 
 .input-download label {
@@ -23,7 +32,11 @@
   display: flex;
   color: var(--gray-light);
   font-size: 1.2rem;
-  pointer-events: none;
+  user-select: none;
+}
+
+.input-download:has(input:hover) label {
+  fill: rgba(255, 187, 0, 0.5);
 }
 
 .input-download label svg {
@@ -31,6 +44,7 @@
   height: 20px;
   align-self: center;
   fill: var(--gray-light);
+  transition: all .3s;
 }
 
 .input-download input {
@@ -63,10 +77,97 @@
   right: 10px;
   top: 10px;
   bottom: 10px;
+  opacity: 0.7;
 }
 
-.input-download button:active {
-  transform: translateY(0);
+.input-download button:hover,
+.input-download input:hover + button,
+.input-download:focus-within button {
+  opacity: 1;
+}
+
+.music-display {
+  background-color: var(--white);
+  color: var(--black);
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: 270px 1fr;
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+}
+
+.music-display figure {
+  position: inherit;
+}
+
+.music-display .duration {
+  color: var(--accent-color);
+  background-color: rgba(0, 0, 0, 0.9);
+  opacity: 0.8;
+  padding: 0.4rem;
+  position: absolute;
+  z-index: 10;
+  bottom: 0.2rem;
+  right: 0.2rem;
+  border-radius: 0.2rem;
+  font-size: 0.85rem;
+}
+
+.music-display .music-details {
+  display: grid;
+  padding: 1rem;
+}
+
+.music-display .music-details p {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+.music-display .music-details p span,
+.music-display .music-details p svg {
+  color: var(--gray-dark);
+}
+
+.music-display .music-details .music-btns {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  margin-top: 1rem;
+  gap: 0.5rem;
+}
+
+.music-display .music-btns button {
+  display: flex;
+  background-color: black;
+  padding: .4rem 1rem;
+  color: var(--accent-color);
+  border-radius:  1rem;
+  font-size: 1.1rem;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  transition: .3s;
+}
+
+.music-display .music-btns .back-btn {
+  background-color: var(--white);
+  color: var(--gray-dark);
+}
+
+.music-display .music-btns .back-btn:hover {
+  background-color: var(--gray-light);
+  color: var(--black);
+}
+
+.music-display .music-btns .download-btn:hover {
+  background-color: var(--accent-color);
+  color: var(--black);
+}
+
+.music-display .music-btns .download-btn:disabled {
+  background-color: var(--gray-light);
+  color: var(--gray-dark);
 }
 
 @media (max-width: 768px) {

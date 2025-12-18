@@ -2,19 +2,19 @@ import { useState } from "react";
 import YoutubeIcon from "../assets/YoutubeIcon";
 import type { VideoMetadata } from "../types";
 import { useMusic } from "../contexts/MusicContext";
+import { formatDuration, formatTitle } from "../utils/musicUtils";
+import { CircleUserIcon, Download, Music } from "lucide-react";
 
 function InputDownload() {
   const [link, setLink] = useState("");
-  const [selectedMusic, setSelectedMusic] = useState<VideoMetadata | undefined>(
-    undefined
+  const [selectedMusic, setSelectedMusic] = useState<VideoMetadata | null>(
+    null
   );
-  const { getMusicInfo, downloadMusic, loading } =
-    useMusic();
+  const { getMusicInfo, downloadMusic, loading } = useMusic();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log("Link da música:", link);
-    
+
     try {
       const metadata = await getMusicInfo(link);
       if (metadata) {
@@ -46,34 +46,52 @@ function InputDownload() {
         </form>
       ) : (
         <>
-          <div className="music-info">
-            <img
-              src={selectedMusic.thumbnailUrl}
-              alt={`Thumbnail de ${selectedMusic.title}`}
-            />
+          <section className="music-display">
+            <figure>
+              <img
+                src={selectedMusic?.thumbnailUrl}
+                alt={`Thumbnail de ${selectedMusic?.title}`}
+              />
+              <span className="duration">
+                {formatDuration(selectedMusic?.duration) ?? "00:00"}
+              </span>
+            </figure>
             <div className="music-details">
-              <h3>{selectedMusic.title}</h3>
-              <p>{selectedMusic.artist}</p>
+              <h3>{formatTitle(selectedMusic?.title ?? "")}</h3>
+              <p><CircleUserIcon size={14}/> {selectedMusic?.artist}</p>
+              <p>
+                <Music size={14} /> Qualidade de Áudio: <span>320kbps</span>
+              </p>
+              <div className="music-btns">
+                <button
+                  onClick={async () => {
+                    if (selectedMusic) {
+                      await downloadMusic(selectedMusic);
+                    }
+                  }}
+                  disabled={loading}
+                  className="download-btn"
+                >
+                  <Download size={22}></Download>
+                  Baixar {loading ? "..." : "Música"}
+                </button>
+                <button
+                  onClick={() => {
+                    if (loading) {
+                      alert(
+                        "Existe um dowload em carregamento, sair agora NÂO irá cancelá-lo."
+                      );
+                    }
+                    setLink("");
+                    setSelectedMusic(null);
+                  }}
+                  className="back-btn"
+                >
+                  Voltar
+                </button>
+              </div>
             </div>
-          </div>
-          <button
-            onClick={async () => {
-              if (selectedMusic) {
-                await downloadMusic(selectedMusic);
-              }
-            }}
-            disabled={loading}
-          >
-            Baixar {loading ? "..." : "Música"}
-          </button>
-          <button
-            onClick={() => {
-              setLink("");
-              setSelectedMusic(undefined);
-            }}
-          >
-            Voltar
-          </button>
+          </section>
         </>
       )}
     </>

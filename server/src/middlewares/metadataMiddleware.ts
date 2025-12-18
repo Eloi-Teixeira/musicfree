@@ -78,10 +78,10 @@ export async function getMetadata(url: string) {
 
     const metadata: VideoMetadata = {
       title: data.title || "Unknown Title",
-      artist: data.uploader,
-      releaseDate: data?.upload_date,
+      artist: data.uploader  || "Unknown Artist",
+      releaseDate: data?.upload_date  || "Unknown Date",
       thumbnailUrl: selectedThumbnail ? selectedThumbnail.url : "",
-      duration: data.duration,
+      duration: data.duration  || 0,
       id: data.id,
       uploader_id: data.uploader_id,
       url,
