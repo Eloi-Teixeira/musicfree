@@ -8,6 +8,7 @@ export interface VideoMetadata {
   url: string;
   id: string;
   uploader_id: string | null;
+  created_at: string | Date
 }
 
 // Get Musics API Response types
@@ -25,7 +26,7 @@ export interface APIErrorResponse {
 
 export interface GetMetadataResponse {
   data: VideoMetadata;
-  erroor?: string;
+  error?: string;
 }
 
 // Component Props types

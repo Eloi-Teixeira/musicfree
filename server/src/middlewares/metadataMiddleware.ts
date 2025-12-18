@@ -85,6 +85,7 @@ export async function getMetadata(url: string) {
       id: data.id,
       uploader_id: data.uploader_id,
       url,
+      created_at: new Date(),
     };
 
     return metadata;

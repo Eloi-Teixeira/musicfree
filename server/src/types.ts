@@ -8,6 +8,7 @@ export interface VideoMetadata {
   url: string;
   id: string;
   uploader_id: string | null;
+  created_at: string | Date;
 }
 
 // Thumbnail types

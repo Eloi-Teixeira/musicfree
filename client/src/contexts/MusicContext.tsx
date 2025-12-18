@@ -26,6 +26,7 @@ const MusicContext = createContext<MusicContextType | null>(null);
 export function MusicProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(false);
   const [musicData, setMusicData] = useState<VideoMetadata[]>([]);
+  const ABORT_SIGNAL_TIME = 30_000;
 
   const { Feedback, showError, showSuccess } = useSubmitMessage({
     successMessage: "Operação realizada com sucesso!",
@@ -59,12 +60,18 @@ export function MusicProvider({ children }: { children: ReactNode }) {
       processResponse: (res: Response) => Promise<T>
     ): Promise<T | null> => {
       if (loading) return null;
-
       setLoading(true);
+
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), ABORT_SIGNAL_TIME);
       try {
         if (!validateURL(videoURL)) throw new Error("URL inválida");
 
-        const response = await fetch(`${apiUrl}/${endpoint}?url=${videoURL}`);
+        const response = await fetch(`${apiUrl}/${endpoint}?url=${videoURL}`, {
+          signal: controller.signal,
+        });
+
+        clearTimeout(timeoutId);
 
         if (!response.ok) {
           throw new Error(
@@ -76,14 +83,19 @@ export function MusicProvider({ children }: { children: ReactNode }) {
         return result;
       } catch (err) {
         if (err instanceof Error) {
+          if (err.name === "AbortError") {
+            showError("O servidor demorou muito para responder.");
+            return null;
+          }
           showError(err.message);
         }
         return null;
       } finally {
+        if (timeoutId) clearTimeout(timeoutId);
         setLoading(false);
       }
     },
-    [loading, showError]
+    [loading, showError, ABORT_SIGNAL_TIME]
   );
 
   const getMusicInfo = useCallback(
@@ -104,6 +116,7 @@ export function MusicProvider({ children }: { children: ReactNode }) {
       );
 
       if (data) {
+        if (!data.created_at) data.created_at = new Date();
         setMusicData((prev) => [...prev, data]);
         showSuccess("Música encontrada!");
       }
