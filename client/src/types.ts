@@ -8,7 +8,7 @@ export interface VideoMetadata {
   url: string;
   id: string;
   uploader_id: string | null;
-  created_at: string | Date
+  created_at: string | Date;
 }
 
 // Get Musics API Response types
@@ -43,11 +43,12 @@ export interface MenuItem {
 
 export const MUSIC_KEY_STORAGE = "downloadedMusics";
 
-
 export interface MusicContextType {
   musicData: VideoMetadata[];
   loading: boolean;
   getMusicInfo: (videoURL: string) => Promise<VideoMetadata | null>;
   downloadMusic: (music: VideoMetadata) => Promise<void>;
   removeMusic: (id: string) => void; // Adicionei um extra útil
+  setSelectedMusic: React.Dispatch<React.SetStateAction<VideoMetadata | null>>;
+  selectedMusic: VideoMetadata | null;
 }

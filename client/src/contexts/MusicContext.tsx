@@ -26,6 +26,9 @@ const MusicContext = createContext<MusicContextType | null>(null);
 export function MusicProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(false);
   const [musicData, setMusicData] = useState<VideoMetadata[]>([]);
+  const [selectedMusic, setSelectedMusic] = useState<VideoMetadata | null>(
+    null
+  );
   const ABORT_SIGNAL_TIME = 30_000;
 
   const { Feedback, showError, showSuccess } = useSubmitMessage({
@@ -103,6 +106,7 @@ export function MusicProvider({ children }: { children: ReactNode }) {
       const existing = musicData.find((m) => m.url === videoURL);
       if (existing) {
         showSuccess("Música já está na lista!");
+        setSelectedMusic(existing);
         return existing;
       }
 
@@ -118,6 +122,7 @@ export function MusicProvider({ children }: { children: ReactNode }) {
       if (data) {
         if (!data.created_at) data.created_at = new Date();
         setMusicData((prev) => [...prev, data]);
+        setSelectedMusic(data);
         showSuccess("Música encontrada!");
       }
       return data;
@@ -149,6 +154,8 @@ export function MusicProvider({ children }: { children: ReactNode }) {
   return (
     <MusicContext.Provider
       value={{
+        selectedMusic,
+        setSelectedMusic,
         musicData,
         loading,
         getMusicInfo,

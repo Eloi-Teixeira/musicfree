@@ -1,10 +1,11 @@
 import { CheckCircle2, Download, History } from "lucide-react";
 import InputDownload from "../components/InputDownload";
-import VideoCard from "../components/MusicCard";
+import MusicCard from "../components/MusicCard";
 import { useMusic } from "../contexts/MusicContext";
+import { MusicDiplay } from "../components/MusicDisplay";
 
 function HomePage() {
-  const { musicData } = useMusic();
+  const { musicData, selectedMusic } = useMusic();
 
   const features = [
     "DOWNLOADS GRÁTIS",
@@ -28,7 +29,7 @@ function HomePage() {
 
       <main className="home-content">
         <section className="input-section max-width-container">
-          <InputDownload />
+          {selectedMusic ? <MusicDiplay /> : <InputDownload />}
         </section>
 
         <section className="downloads-section max-width-container">
@@ -48,9 +49,15 @@ function HomePage() {
               </div>
             ) : (
               musicData
+                .sort(
+                  (a, b) =>
+                    new Date(a.created_at).getTime() -
+                    new Date(b.created_at).getTime()
+                )
+                .reverse()
                 .slice(0, 5)
                 .map((video, i) => (
-                  <VideoCard key={"Music" + i} music={video} />
+                  <MusicCard key={"Music" + i} music={video} />
                 ))
             )}
           </div>
