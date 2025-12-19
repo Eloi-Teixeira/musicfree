@@ -2,10 +2,11 @@
   --black: #000;
   --white: #fff;
   --accent-color: #fb0;
-  --gray-light: #e0e0e0;
-  --gray-dark: #6b7280;
-  --bg-color: #f9fafb;
-
+  --bg-color: #f4f4f5;
+  --gray-light: #d4d4d8;
+  --gray-dark: #3f3f46;
+  --red: #ef4444;
+  --bg-red-op: #dd696933;
 }
 
 ::-webkit-scrollbar {
@@ -29,7 +30,7 @@
 }
 
 #App {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    height: 100vh;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  height: 100vh;
 }
