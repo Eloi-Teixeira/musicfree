@@ -1,0 +1,138 @@
+#history-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  overflow-y: auto;
+  max-width: 1024px;
+  margin-inline: auto;
+  gap: 2rem;
+}
+
+.history-header {
+  margin-top: 5rem;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  justify-content: space-between;
+  row-gap: 1rem;
+}
+
+.history-header p {
+  color: var(--gray-dark);
+}
+
+.history-header span {
+  background-color: var(--gray-light);
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+  font-size: 0.9rem;
+}
+
+.history-content table {
+  display: grid;
+  background-color: var(--white);
+  border-radius: 1.5rem;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.4);
+  margin: 0 0.2rem;
+  overflow: hidden;
+}
+
+.history-content table tr {
+  display: inherit;
+  grid-template-columns: 2fr 1fr 1fr 60px;
+  gap: 0.5rem;
+  padding: 1rem 1.2rem;
+  border-top: 1px solid;
+}
+
+.history-content table tr:has(th) {
+  background-color: var(--black) !important;
+  color: var(--white);
+}
+
+.history-content table tr:nth-child(odd) {
+  background-color: var(--gray-light);
+}
+
+.history-content table tr:first-child {
+  border: none;
+}
+
+.history-content table td {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.history-content table th:first-child,
+.history-content table td:first-child {
+  justify-content: start;
+}
+
+.history-content table a {
+  transition: 0.3s;
+}
+
+.history-content table a:hover {
+  color: var(--accent-color);
+}
+
+.history-content table .table-btns {
+  gap: 0.25rem;
+  user-select: none;
+}
+
+.history-content table .table-btns button {
+  color: var(--black);
+  transition: 0.3s;
+  padding: 0.2rem;
+  border-radius: .4rem;
+  overflow: hidden;
+}
+
+.history-content table .table-btns button:last-child:hover {
+  color: var(--red);
+  background-color: var(--bg-red-op);
+}
+
+.history-content table .table-btns button:first-child:hover {
+  color: var(--accent-color);
+  background-color: var(--gray-dark);
+}
+
+
+.history-content table .table-btns button:disabled {
+  color: var(--gray-dark);
+}
+
+.history-content .table-control {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 2rem;
+}
+
+.history-content .table-control button {
+  background-color: var(--black);
+  padding: 1rem 1.5rem;
+  color: var(--white);
+  border-radius: 2rem;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.history-content .table-control button:disabled {
+  background-color: var(--gray-light);
+  color: var(--gray-dark);
+}
+
+.history-content .table-control button:disabled:hover {
+  background-color: var(--gray-dark);
+  color: white;
+}
+
+.history-content .table-control button:hover {
+  background-color: var(--accent-color);
+  color: var(--black);
+}
