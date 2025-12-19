@@ -51,10 +51,6 @@
   color: var(--white);
 }
 
-.history-content table tr:nth-child(odd) {
-  background-color: var(--gray-light);
-}
-
 .history-content table tr:first-child {
   border: none;
 }
