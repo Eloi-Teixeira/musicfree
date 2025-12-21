@@ -3,6 +3,7 @@ import HomePage from "./pages/HomePage";
 import HistoryPage from "./pages/HistoryPage";
 import AsideMenu from "./components/AsideMenu";
 import { MusicProvider } from "./contexts/MusicContext";
+import ErrorComponent from "./components/ErrorComponent";
 
 function Layout() {
   return (
@@ -22,10 +23,12 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <HomePage />,
+        errorElement: <ErrorComponent />
       },
       {
         path: "/history",
         element: <HistoryPage />,
+        errorElement: <ErrorComponent />
       },
     ],
   },

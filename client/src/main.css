@@ -2,7 +2,8 @@
 @import "./styles/reset.css";
 @import "./components/InputDownload.css";
 @import "./components/MusicDisplay.css";
-@import './components/MusicCard.css';
+@import "./components/MusicCard.css";
 @import "./components/AsideMenu.css";
 @import "./pages/HomePage.css";
-@import "./pages/HistoryPage.css"
+@import "./pages/HistoryPage.css";
+@import "./components/ErrorComponent.css";
