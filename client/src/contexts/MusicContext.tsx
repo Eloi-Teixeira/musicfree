@@ -67,6 +67,9 @@ export function MusicProvider({ children }: { children: ReactNode }) {
 
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), ABORT_SIGNAL_TIME);
+      const errorMessage = `Erro ao ${
+        endpoint === "metadata" ? "buscar" : "baixar"
+      } a música`;
       try {
         if (!validateURL(videoURL)) throw new Error("URL inválida");
 
@@ -77,9 +80,7 @@ export function MusicProvider({ children }: { children: ReactNode }) {
         clearTimeout(timeoutId);
 
         if (!response.ok) {
-          throw new Error(
-            `Erro ao ${endpoint === "metadata" ? "buscar" : "baixar"} a música`
-          );
+          throw new Error(errorMessage);
         }
 
         const result = await processResponse(response);
@@ -88,6 +89,9 @@ export function MusicProvider({ children }: { children: ReactNode }) {
         if (err instanceof Error) {
           if (err.name === "AbortError") {
             showError("O servidor demorou muito para responder.");
+            return null;
+          } else if (err.name === "TypeError") {
+            showError(errorMessage);
             return null;
           }
           showError(err.message);

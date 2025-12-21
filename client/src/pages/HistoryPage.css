@@ -29,7 +29,7 @@
   font-size: 0.9rem;
 }
 
-.history-content table {
+.history-content .table {
   display: grid;
   background-color: var(--white);
   border-radius: 1.5rem;
@@ -38,7 +38,7 @@
   overflow: hidden;
 }
 
-.history-content table tr {
+.history-content .table .tr {
   display: inherit;
   grid-template-columns: 2fr 1fr 1fr 60px;
   gap: 0.5rem;
@@ -46,59 +46,59 @@
   border-top: 1px solid;
 }
 
-.history-content table tr:has(th) {
+.history-content .table .thead {
   background-color: var(--black) !important;
   color: var(--white);
 }
 
-.history-content table tr:first-child {
+.history-content .table .tr:first-child {
   border: none;
 }
 
-.history-content table td {
+.history-content .table .td {
   display: flex;
   align-items: center;
   justify-content: center;
+  text-align: center;
 }
 
-.history-content table th:first-child,
-.history-content table td:first-child {
+.history-content .table .th:first-child,
+.history-content .table .td:first-child {
   justify-content: start;
 }
 
-.history-content table a {
+.history-content .table a {
   transition: 0.3s;
 }
 
-.history-content table a:hover {
+.history-content .table a:hover {
   color: var(--accent-color);
 }
 
-.history-content table .table-btns {
+.history-content .table .table-btns {
   gap: 0.25rem;
   user-select: none;
 }
 
-.history-content table .table-btns button {
+.history-content .table .table-btns button {
   color: var(--black);
   transition: 0.3s;
   padding: 0.2rem;
-  border-radius: .4rem;
+  border-radius: 0.4rem;
   overflow: hidden;
 }
 
-.history-content table .table-btns button:last-child:hover {
+.history-content .table .table-btns button:last-child:hover {
   color: var(--red);
   background-color: var(--bg-red-op);
 }
 
-.history-content table .table-btns button:first-child:hover {
+.history-content .table .table-btns button:first-child:hover {
   color: var(--accent-color);
   background-color: var(--gray-dark);
 }
 
-
-.history-content table .table-btns button:disabled {
+.history-content .table .table-btns button:disabled {
   color: var(--gray-dark);
 }
 

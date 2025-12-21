@@ -20,6 +20,7 @@ export function isValidMusicData(data: any): data is VideoMetadata[] {
 }
 
 export function validateURL(url: string): boolean {
+  if (!url) return false;
   if (typeof url !== "string") return false;
   const cleanUrl = url.trim();
   return cleanUrl.length > 0 && YOUTUBE_REGEX.test(cleanUrl);
@@ -59,10 +60,9 @@ export function formatDate(date: string | Date) {
     newDate = new Date();
   }
 
-  const y = String(newDate.getFullYear()).padStart(2, '0')
-  const m = String(newDate.getMonth()).padStart(2, '0')
-  const d = String(newDate.getDate()).padStart(2, '0')
+  const y = String(newDate.getFullYear()).padStart(2, "0");
+  const m = String(newDate.getMonth()).padStart(2, "0");
+  const d = String(newDate.getDate()).padStart(2, "0");
 
   return `${d}/${m}/${y}`;
 }
-

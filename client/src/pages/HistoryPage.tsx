@@ -18,26 +18,27 @@ function HistoryPage() {
         <span>Total: {musicData.length} itens</span>
       </header>
       <main className="history-content">
-        <table>
-          <tr>
-            <th>Nome</th>
-            <th>Id</th>
-            <th>Data</th>
-            <th>Ações</th>
-          </tr>
+        <div className="table">
+          <div className="tr thead">
+            <div className="td">Nome</div>
+            <div className="td">Id</div>
+            <div className="td">Data</div>
+            <div className="td">Ações</div>
+          </div>
+
           {musicData.slice(startOffset, endOffset).map((music) => (
-            <tr>
-              <td>{formatTitle(music.title)}</td>
-              <td>
+            <div className="tr" key={music.id}>
+              <div className="td">{formatTitle(music.title)}</div>
+              <div className="td">
                 <Link target="_blank" to={music.url}>
                   {formatTitle(music.id, 12)}
                 </Link>
-              </td>
-              <td>{formatDate(music.created_at)}</td>
-              <td className="table-btns">
+              </div>
+              <div className="td">{formatDate(music.created_at)}</div>
+              <div className="table-btns td">
                 <button
-                title="Baixar música"
-                disabled={loading}
+                  title="Baixar música"
+                  disabled={loading}
                   onClick={async () => {
                     await downloadMusic(music);
                   }}
@@ -46,17 +47,17 @@ function HistoryPage() {
                 </button>
                 /
                 <button
-                title="Deletar música"
+                  title="Deletar música"
                   onClick={() => {
                     removeMusic(music.id);
                   }}
                 >
                   <Trash size={18} />
                 </button>
-              </td>
-            </tr>
+              </div>
+            </div>
           ))}
-        </table>
+        </div>
         {musicData.length > 10 && (
           <div className="table-control">
             <button
