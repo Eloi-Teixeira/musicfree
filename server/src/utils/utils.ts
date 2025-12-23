@@ -29,15 +29,14 @@ function selectBestThumbnail(
 function getMetadataYTDLP(videoUrl: string): Promise<YTDLP | undefined> {
   return new Promise((resolve, reject) => {
     const ytdlp = spawn("yt-dlp", [videoUrl, "--dump-json"]);
-    let jsonOutput = "";
+    const chunks: Buffer[] = [];
 
-    ytdlp.stdout.on("data", (data) => {
-      jsonOutput += data.toString();
-    });
+    ytdlp.stdout.on("data", (chunk) => chunks.push(chunk));
 
     ytdlp.on("close", (code) => {
       if (code === 0) {
         try {
+          const jsonOutput = Buffer.concat(chunks).toString("utf8");
           const metadata = JSON.parse(jsonOutput) as YTDLP;
           resolve(metadata);
         } catch (e) {
