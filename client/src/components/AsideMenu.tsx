@@ -1,8 +1,10 @@
 import { Copyright, History, LayoutGrid, Music } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import type { MenuItem } from "../types";
+import { useState } from "react";
 
 function AsideMenu() {
+  const [openMenu, setOpenMenu] = useState(false);
   const menuItems: MenuItem[] = [
     {
       id: "/",
@@ -26,7 +28,13 @@ function AsideMenu() {
         </h2>
       </header>
       <nav>
-        <ul>
+        <button
+          className={"menu-mobile" + (openMenu ? " active" : "")}
+          onClick={() => setOpenMenu((b) => !b)}
+        >
+          <span></span>
+        </button>
+        <ul className={openMenu ? "expanded" : ""}>
           {menuItems.map((item) => (
             <li key={item.id}>
               <NavLink to={item.id} className={""}>
