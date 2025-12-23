@@ -1,17 +1,16 @@
 import { Request, Response } from "express";
 import { spawn } from "child_process";
-import { getMetadata } from "../middlewares/metadataMiddleware";
-import type { VideoMetadata } from "../types";
+import { getMetadata } from "../utils/utils";
 
 const YTDLP_BIN = "yt-dlp";
 
 async function downloadAudio(req: Request, res: Response) {
   try {
     const videoURL = req.query.url as string;
-    const metadata = (req as any).videoMetadata as VideoMetadata;
+    const metadata = await getMetadata(videoURL);
     console.log("URL recebida para download:", videoURL);
 
-    if (!videoURL || !metadata || typeof videoURL !== "string") {
+    if (!metadata) {
       res.status(400).json({ error: "URL do YouTube inválida ou ausente." });
       return;
     }
@@ -74,6 +73,10 @@ async function getVideoInfo(req: Request, res: Response) {
   }
   try {
     const metadata = await getMetadata(url);
+    if (!metadata) {
+      res.status(500).json({ error: "Não foi possível obter os metadados." });
+      return;
+    }
     res.status(200).json({ data: metadata });
   } catch (error) {
     res.status(500).json({ error: "Erro ao obter metadados do vídeo." });
