@@ -23,12 +23,12 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <HomePage />,
-        errorElement: <ErrorComponent />
+        errorElement: <ErrorComponent />,
       },
       {
         path: "/history",
         element: <HistoryPage />,
-        errorElement: <ErrorComponent />
+        errorElement: <ErrorComponent />,
       },
     ],
   },

@@ -6,8 +6,8 @@ import { Download, Trash } from "lucide-react";
 
 function HistoryPage() {
   const { musicData, downloadMusic, removeMusic, loading } = useMusic();
-  const [startOffset, setStartOffset] = useState(0);
-  const [endOffset, setEndOffset] = useState(10);
+  const [offset, setOffset] = useState(0);
+  const [limit, setLimit] = useState(10);
   return (
     <div id="history-container">
       <header className="history-header">
@@ -26,7 +26,7 @@ function HistoryPage() {
             <div className="td">Ações</div>
           </div>
 
-          {musicData.slice(startOffset, endOffset).map((music) => (
+          {musicData.slice(offset, limit).map((music) => (
             <div className="tr" key={music.id}>
               <div className="td">{formatTitle(music.title)}</div>
               <div className="td">
@@ -61,25 +61,25 @@ function HistoryPage() {
         {musicData.length > 10 && (
           <div className="table-control">
             <button
-              disabled={startOffset === 0}
+              disabled={offset === 0}
               onClick={() => {
-                if (startOffset === 0) {
+                if (offset === 0) {
                   return;
                 }
-                setStartOffset((prev) => prev - 10);
-                setEndOffset((prev) => prev - 10);
+                setOffset((prev) => prev - 10);
+                setLimit((prev) => prev - 10);
               }}
             >
               Voltar
             </button>
             <button
-              disabled={endOffset > musicData.length}
+              disabled={limit > musicData.length}
               onClick={() => {
-                if (endOffset > musicData.length) {
+                if (limit > musicData.length) {
                   return;
                 }
-                setStartOffset((prev) => prev + 10);
-                setEndOffset((prev) => prev + 10);
+                setOffset((prev) => prev + 10);
+                setLimit((prev) => prev + 10);
               }}
             >
               Proximo
