@@ -19,6 +19,20 @@ export function isValidMusicData(data: any): data is VideoMetadata[] {
   );
 }
 
+export function mergeArrays<T>(key: keyof T, ...arrays: T[][]): T[] {
+  const cache = new Map<T[keyof T], T>();
+
+  arrays.flat().forEach((item) => {
+    const keyValue = item[key];
+
+    if (!cache.has(keyValue)) {
+      cache.set(keyValue, item);
+    }
+  });
+
+  return Array.from(cache.values());
+}
+
 export function validateURL(url: string): boolean {
   if (!url) return false;
   if (typeof url !== "string") return false;

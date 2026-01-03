@@ -77,47 +77,38 @@ function transformToMetadata(data: YTDLP, url: string): VideoMetadata {
 }
 
 export async function getMetadata(url: string) {
-  try {
-    const videoId = extractYoutubeId(url);
-    if (!videoId) {
-      throw new Error("Não foi possível extrair o ID do vídeo.");
-    }
-    const musicData = await getMusicFromDB(videoId);
-    if (musicData) {
-      console.log(`Metadados obtidos do banco para: ${videoId}`);
-      return musicData;
-    }
-
-    const data = await getMetadataYTDLP(videoId);
-    if (!data) {
-      throw new Error("Falha ao obter metadados do vídeo.");
-    }
-
-    if (pendingRequests.has(videoId)) {
-      console.log(`Aguardando download já iniciado para: ${videoId}`);
-      return await pendingRequests.get(videoId);
-    }
-
-    const downloadPromise = (async () => {
-      try {
-        const data = await getMetadataYTDLP(videoId);
-        if (!data) throw new Error("Falha no yt-dlp");
-
-        const metadata = transformToMetadata(data, url);
-        console.log(`Metadados obtidos do yt-dlp para: ${videoId}`);
-
-        await saveMusicToDB(metadata);
-        return metadata;
-      } finally {
-        pendingRequests.delete(videoId);
-      }
-    })();
-
-    pendingRequests.set(videoId, downloadPromise);
-
-    return await downloadPromise;
-  } catch (error) {
-    console.error("Erro ao obter metadados:", error);
+  const videoId = extractYoutubeId(url);
+  if (!videoId) {
+    console.error("Não foi possível extrair o ID do vídeo.");
     return null;
   }
+
+  if (pendingRequests.has(videoId)) {
+    return await pendingRequests.get(videoId);
+  }
+
+  const musicData = await getMusicFromDB(videoId);
+  if (musicData) {
+    console.log(`Metadados obtidos do banco para: ${videoId}`);
+    return musicData;
+  }
+
+  const downloadPromise = (async () => {
+    try {
+      const data = await getMetadataYTDLP(videoId);
+      if (!data) throw new Error("Falha no yt-dlp");
+
+      const metadata = transformToMetadata(data, url);
+      console.log(`Metadados obtidos do yt-dlp para: ${videoId}`);
+
+      await saveMusicToDB(metadata);
+      return metadata;
+    } finally {
+      pendingRequests.delete(videoId);
+    }
+  })();
+
+  pendingRequests.set(videoId, downloadPromise);
+
+  return await downloadPromise;
 }

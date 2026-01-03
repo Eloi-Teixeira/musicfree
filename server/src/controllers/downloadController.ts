@@ -14,18 +14,6 @@ async function downloadAudio(req: Request, res: Response) {
       res.status(400).json({ error: "URL do YouTube inválida ou ausente." });
       return;
     }
-    const tagArgs: string[] = [];
-
-    tagArgs.push("--add-metadata");
-    tagArgs.push("--embed-thumbnail");
-    tagArgs.push("--metadata", `title:${metadata.title}`);
-    tagArgs.push("--metadata", `artist:${metadata.artist}`);
-    const year = metadata.releaseDate
-      ? new Date(metadata.releaseDate).getFullYear().toString()
-      : "";
-    if (year) {
-      tagArgs.push("--metadata", `date:${year}`);
-    }
 
     const filename = `${"audio_yt_dlp"}.mp3`;
     const args = [

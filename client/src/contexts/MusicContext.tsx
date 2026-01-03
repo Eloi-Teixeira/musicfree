@@ -15,6 +15,7 @@ import {
 import { useSubmitMessage } from "../hook/SubmitMessage";
 import {
   isValidMusicData,
+  mergeArrays,
   triggerFileDownload,
   validateURL,
 } from "../utils/musicUtils";
@@ -42,7 +43,7 @@ export function MusicProvider({ children }: { children: ReactNode }) {
       if (rawData) {
         const parsedData = JSON.parse(rawData);
         if (isValidMusicData(parsedData)) {
-          setMusicData(parsedData);
+          setMusicData(prev => mergeArrays("id", prev, parsedData));
         }
       }
     } catch (e) {
@@ -125,7 +126,7 @@ export function MusicProvider({ children }: { children: ReactNode }) {
 
       if (data) {
         if (!data.created_at) data.created_at = new Date();
-        setMusicData((prev) => [...prev, data]);
+        setMusicData((prev) => mergeArrays("id", prev, [data]));
         setSelectedMusic(data);
         showSuccess("Música encontrada!");
       }
